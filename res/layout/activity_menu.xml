@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MenuActivity" >
+
+    <TextView
+        android:id="@+id/menuTitle_title"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/menuButton_TranslateTo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menuTitle_title"
+        android:layout_marginTop="20dp"
+        android:onClick="TranslateToPressed"
+        android:text="@string/menuButton_TranslateTo" />
+
+    <Button
+        android:id="@+id/menuButton_TranslateFrom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menuButton_TranslateTo"
+        android:onClick="TranslateFromPressed"
+        android:text="@string/menuButton_TranslateFrom" />
+
+    <Button
+        android:id="@+id/menuButton_About"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menuButton_TranslateFrom"
+        android:onClick="AboutPressed"
+        android:text="@string/menuButton_About" />
+
+    <Button
+        android:id="@+id/menuButton_Quit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/menuButton_About"
+        android:onClick="QuitPressed"
+        android:text="@string/menuButton_Quit" />
+
+</RelativeLayout>
