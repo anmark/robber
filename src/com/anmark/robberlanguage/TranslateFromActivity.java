@@ -115,7 +115,7 @@ public class TranslateFromActivity extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	super.onCreateContextMenu(menu, v, menuInfo);
-	            // Create your context menu here
+		// Create context menu with one item, clear
 	    menu.setHeaderTitle("Context Menu");
 	    menu.add(0, v.getId(), 0, "Clear");        
 	}
@@ -123,6 +123,7 @@ public class TranslateFromActivity extends Activity {
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		TextView output = (TextView) findViewById(R.id.translateTo_output);
+		// Create context menu with one item, clear
 		if (item.getTitle().equals("Clear")){
 			output.setText("");
 		}

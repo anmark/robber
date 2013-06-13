@@ -6,10 +6,12 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.view.ContextMenu;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -119,5 +121,22 @@ public class TranslateToActivity extends Activity {
 			robberLanguage = translateTo(textToTranslate) + " ";
 			output.append(robberLanguage);
 		}
+	}
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	super.onCreateContextMenu(menu, v, menuInfo);
+		// Create context menu with one item, clear
+	    menu.setHeaderTitle("Context Menu");
+	    menu.add(0, v.getId(), 0, "Clear");        
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		TextView output = (TextView) findViewById(R.id.translateTo_output);
+		// If clear selected, clear translated text
+		if (item.getTitle().equals("Clear")){
+			output.setText("");
+		}
+		return true;
 	}
 }
