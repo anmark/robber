@@ -18,20 +18,6 @@ public class TranslateToActivity extends Activity {
 	private String robberLanguage = "";
 
 	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		// Save translated text if activity restarted or destroyed
-		outState.putString("message", robberLanguage);
-	}
-
-	@Override
-	protected void onRestoreInstanceState (Bundle savedInstanceState){
-		TextView output = (TextView) findViewById(R.id.translateTo_output);	
-		output.setText(savedInstanceState.getString("message"));
-		System.out.println(savedInstanceState.getString("message"));
-	}
-
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_translate_to);
@@ -84,14 +70,14 @@ public class TranslateToActivity extends Activity {
 		char robber[] = input.toCharArray();	
 
 		for(int i = 0; i < robber.length; i++){
-			String add = "";
+			String temp = "";
 			for(int y = 0; y < con.length; y++){
 				if(robber[i] == con[y]){
-					add = "o" + Character.toString(robber[i]); 
+					temp = "o" + Character.toString(robber[i]); 
 					break;
 				}
 			}
-			output = output + Character.toString(robber[i]) + add;
+			output = output + Character.toString(robber[i]) + temp;
 		}
 
 		return output;

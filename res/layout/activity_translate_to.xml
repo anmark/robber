@@ -52,6 +52,7 @@
             android:id="@+id/translateTo_output"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:freezesText = "true"
             android:text="@string/translateTo_output"
             android:textIsSelectable="true" />
     </RelativeLayout>

@@ -1,29 +1,42 @@
 package com.anmark.robberlanguage;
 
-import android.os.Bundle;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v4.app.NavUtils;
-import android.annotation.TargetApi;
-import android.content.Context;
-import android.os.Build;
 
 public class TranslateFromActivity extends Activity {
 	
 	private String robberLanguage = "";
-
+	private EditText input;
+	private TextView output;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_translate_from);
 		// Show the Up button in the action bar.
 		setupActionBar();
+		
+		// Get views
+		input = (EditText) findViewById(R.id.translateTo_input);
+		output = (TextView) findViewById(R.id.translateTo_output);
+		
+		// Add context menu to translated text
+		registerForContextMenu(output);
 	}
+	
+	
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -35,13 +48,14 @@ public class TranslateFromActivity extends Activity {
 		}
 	}
 
-	@Override
+	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.translate_from, menu);
 		return true;
 	}
-
+	*/
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -61,33 +75,15 @@ public class TranslateFromActivity extends Activity {
 	
 	// Translate Robber Language to regular text
 	public String translateFrom(String input){
-
-		//String output = "";
-		String nyString = input;
-		  nyString = nyString.replaceAll("(?iu)(([b-d]|[f-h]|[j-n]|[p-t]|[v-x]|z)o\\2)", "$2");
-		/*
-		char con[] = "bcdfghjklmnpqrstvwxz".toCharArray();
-		char robber[] = input.toCharArray();	
-
-		for(int i = 0; i < robber.length; i++){
-			String add = "";
-			for(int y = 0; y < con.length; y++){
-				if(robber[i] == con[y]){
-					add = "o" + Character.toString(robber[i]); 
-					break;
-				}
-			}
-			output = output + Character.toString(robber[i]) + add;
-		}
-*/
-		return nyString;
-		
+		// Code for translation fetched from
+		// http://www.sweclockers.com/forum/10-programmering-och-digitalt-skapande/1214106-skoluppgift-i-java-rovarspraket/
+		String output = input.replaceAll("(?iu)(([b-d]|[f-h]|[j-n]|[p-t]|[v-x]|z)o\\2)", "$2");
+		return output;
 	}
 	
 	/** Called when the user clicks the Translate button */
 	public void TranslateFromPressed(View view){
-		// Get input text
-		EditText input = (EditText) findViewById(R.id.translateTo_input);
+		// Get input text 
 		String textToTranslate = input.getText().toString();
 
 		// Clear input
@@ -105,9 +101,31 @@ public class TranslateFromActivity extends Activity {
 		// Do translation and display it
 		else{
 			robberLanguage = translateFrom(textToTranslate) + " ";
-			TextView output = (TextView) findViewById(R.id.translateTo_output);	
+			TextView output = (TextView) findViewById(R.id.translateTo_output);
+			//registerForContextMenu(output);
 			output.append(robberLanguage);
 		}
+		
 	}
 
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	super.onCreateContextMenu(menu, v, menuInfo);
+	            // Create your context menu here
+	    menu.setHeaderTitle("Context Menu");
+	    menu.add(0, v.getId(), 0, "Clear");        
+	}
+	
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		TextView output = (TextView) findViewById(R.id.translateTo_output);
+		if (item.getTitle().equals("Clear")){
+			output.setText("");
+		}
+		
+	    // Call your function to preform for buttons pressed in a context menu
+	    // can use item.getTitle() or similar to find out button pressed
+	    // item.getItemID() will return the v.getID() that we passed before
+		return true;
+	}
 }   
