@@ -48,16 +48,12 @@
         android:layout_below="@id/translateTo_outputText"
         android:scrollbars="vertical" >
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-
-            <TextView
-                android:id="@+id/translateTo_output"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/translateTo_output" />
-        </ScrollView>
+        <TextView
+            android:id="@+id/translateTo_output"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translateTo_output"
+            android:textIsSelectable="true" />
     </RelativeLayout>
 
 </RelativeLayout>

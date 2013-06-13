@@ -8,4 +8,52 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".TranslateFromActivity" >
 
+    <TextView
+        android:id="@+id/translateTo_inputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/translateTo_inputText"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/translateTo_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/translateTo_inputText"
+        android:layout_centerHorizontal="true"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/button_TranslateTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/translateTo_input"
+        android:onClick="TranslateFromPressed"
+        android:text="@string/button_Translate" />
+
+    <TextView
+        android:id="@+id/translateTo_outputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_TranslateTo"
+        android:text="@string/translateTo_outputText"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/translateTo_outputText"
+        android:scrollbars="vertical" >
+
+        <TextView
+            android:id="@+id/translateTo_output"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/translateTo_output"
+            android:textIsSelectable="true" />
+    </RelativeLayout>
+
 </RelativeLayout>

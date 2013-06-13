@@ -3,7 +3,6 @@ package com.anmark.robberlanguage;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -16,14 +15,30 @@ import android.widget.Toast;
 
 public class TranslateToActivity extends Activity {
 
+	private String robberLanguage = "";
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		// Save translated text if activity restarted or destroyed
+		outState.putString("message", robberLanguage);
+	}
+
+	@Override
+	protected void onRestoreInstanceState (Bundle savedInstanceState){
+		TextView output = (TextView) findViewById(R.id.translateTo_output);	
+		output.setText(savedInstanceState.getString("message"));
+		System.out.println(savedInstanceState.getString("message"));
+	}
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_translate_to);
 		// Show the Up button in the action bar.
 		setupActionBar();
-
 	}
+
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -64,7 +79,6 @@ public class TranslateToActivity extends Activity {
 	public String translateTo(String input){
 
 		String output = "";
-		input = input.toLowerCase();
 
 		char con[] = "bcdfghjklmnpqrstvwxz".toCharArray();
 		char robber[] = input.toCharArray();	
@@ -82,16 +96,19 @@ public class TranslateToActivity extends Activity {
 
 		return output;
 	}
-	
+
 	/** Called when the user clicks the Translate button */
 	public void TranslateToPressed(View view){
 
 		// Get input text
 		EditText input = (EditText) findViewById(R.id.translateTo_input);
 		String textToTranslate = input.getText().toString();
-		
+
+		// Clear input
+		input.setText("");
+
 		// Display short toast if input is empty
-		if((input.getText().toString().isEmpty())){
+		if(textToTranslate.isEmpty()){
 			Context context = getApplicationContext();
 			CharSequence text = "There is nothing to translate!";
 			int duration = Toast.LENGTH_SHORT;
@@ -100,15 +117,12 @@ public class TranslateToActivity extends Activity {
 		}
 		// Do translation and display it
 		else{
-			String robberLanguage = translateTo(textToTranslate);
-			input.setText("");
+			robberLanguage = translateTo(textToTranslate) + " ";
 			TextView output = (TextView) findViewById(R.id.translateTo_output);	
-			output.setText(robberLanguage);
+			output.append(robberLanguage);
 		}
 	}
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-	  super.onConfigurationChanged(newConfig);
-	  setContentView(R.layout.activity_translate_to);
-	}
+
+
+
 }

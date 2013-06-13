@@ -4,11 +4,18 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.os.Build;
 
 public class TranslateFromActivity extends Activity {
+	
+	private String robberLanguage = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,5 +58,56 @@ public class TranslateFromActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	// Translate Robber Language to regular text
+	public String translateFrom(String input){
 
-}
+		//String output = "";
+		String nyString = input;
+		  nyString = nyString.replaceAll("(?iu)(([b-d]|[f-h]|[j-n]|[p-t]|[v-x]|z)o\\2)", "$2");
+		/*
+		char con[] = "bcdfghjklmnpqrstvwxz".toCharArray();
+		char robber[] = input.toCharArray();	
+
+		for(int i = 0; i < robber.length; i++){
+			String add = "";
+			for(int y = 0; y < con.length; y++){
+				if(robber[i] == con[y]){
+					add = "o" + Character.toString(robber[i]); 
+					break;
+				}
+			}
+			output = output + Character.toString(robber[i]) + add;
+		}
+*/
+		return nyString;
+		
+	}
+	
+	/** Called when the user clicks the Translate button */
+	public void TranslateFromPressed(View view){
+		// Get input text
+		EditText input = (EditText) findViewById(R.id.translateTo_input);
+		String textToTranslate = input.getText().toString();
+
+		// Clear input
+		input.setText("");
+
+		// Display short toast if input is empty
+		if(textToTranslate.isEmpty()){
+			Context context = getApplicationContext();
+			CharSequence text = "There is nothing to translate!";
+			int duration = Toast.LENGTH_SHORT;
+			Toast toast = Toast.makeText(context, text, duration);
+			toast.show();
+		}
+		
+		// Do translation and display it
+		else{
+			robberLanguage = translateFrom(textToTranslate) + " ";
+			TextView output = (TextView) findViewById(R.id.translateTo_output);	
+			output.append(robberLanguage);
+		}
+	}
+
+}   

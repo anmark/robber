@@ -7,9 +7,8 @@
     <string name="menuButton_TranslateFrom">Translate from</string>
     <string name="menuButton_About">About</string>
     <string name="menuButton_Quit">Quit</string>
-    <string name="title_activity_translate_to">TranslateToActivity</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="title_activity_translate_from">TranslateFromActivity</string>
+    <string name="title_activity_translate_to">Translate To</string>
+    <string name="title_activity_translate_from">Translate From</string>
     <string name="button_Translate">Translate</string>
     <string name="translateTo_inputText">Text to translate:</string>
     <string name="translateTo_output"></string>
