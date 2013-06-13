@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 public class TranslateToActivity extends Activity {
 
 	private String robberLanguage = "";
+	private EditText input;
+	private TextView output;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,13 @@ public class TranslateToActivity extends Activity {
 		setContentView(R.layout.activity_translate_to);
 		// Show the Up button in the action bar.
 		setupActionBar();
+
+		// Get views
+		input = (EditText) findViewById(R.id.translateTo_input);
+		output = (TextView) findViewById(R.id.translateTo_output);
+
+		// Add context menu to translated text
+		registerForContextMenu(output);
 	}
 
 
@@ -56,6 +66,10 @@ public class TranslateToActivity extends Activity {
 			//
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+			// If clear pressed in options menu, clear translated text
+		case R.id.menuclear:
+			output.setText("");
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -85,9 +99,7 @@ public class TranslateToActivity extends Activity {
 
 	/** Called when the user clicks the Translate button */
 	public void TranslateToPressed(View view){
-
 		// Get input text
-		EditText input = (EditText) findViewById(R.id.translateTo_input);
 		String textToTranslate = input.getText().toString();
 
 		// Clear input
@@ -99,16 +111,13 @@ public class TranslateToActivity extends Activity {
 			CharSequence text = "There is nothing to translate!";
 			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText(context, text, duration);
+			toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
 			toast.show();
 		}
 		// Do translation and display it
 		else{
 			robberLanguage = translateTo(textToTranslate) + " ";
-			TextView output = (TextView) findViewById(R.id.translateTo_output);	
 			output.append(robberLanguage);
 		}
 	}
-
-
-
 }

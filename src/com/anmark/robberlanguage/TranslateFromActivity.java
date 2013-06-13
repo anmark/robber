@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,8 +36,7 @@ public class TranslateFromActivity extends Activity {
 		// Add context menu to translated text
 		registerForContextMenu(output);
 	}
-	
-	
+
 
 	/**
 	 * Set up the {@link android.app.ActionBar}, if the API is available.
@@ -48,16 +48,17 @@ public class TranslateFromActivity extends Activity {
 		}
 	}
 
-	/*@Override
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.translate_from, menu);
 		return true;
 	}
-	*/
+	
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		System.out.println(item.getItemId() +""+ item.getTitle());
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// This ID represents the Home or Up button. In the case of this
@@ -68,6 +69,10 @@ public class TranslateFromActivity extends Activity {
 			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
 			//
 			NavUtils.navigateUpFromSameTask(this);
+			return true;
+		// If clear pressed in options menu, clear translated text
+		case R.id.menuclear:
+			output.setText("");
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -95,14 +100,13 @@ public class TranslateFromActivity extends Activity {
 			CharSequence text = "There is nothing to translate!";
 			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText(context, text, duration);
+			toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
 			toast.show();
 		}
 		
 		// Do translation and display it
 		else{
 			robberLanguage = translateFrom(textToTranslate) + " ";
-			TextView output = (TextView) findViewById(R.id.translateTo_output);
-			//registerForContextMenu(output);
 			output.append(robberLanguage);
 		}
 		
@@ -122,10 +126,6 @@ public class TranslateFromActivity extends Activity {
 		if (item.getTitle().equals("Clear")){
 			output.setText("");
 		}
-		
-	    // Call your function to preform for buttons pressed in a context menu
-	    // can use item.getTitle() or similar to find out button pressed
-	    // item.getItemID() will return the v.getID() that we passed before
 		return true;
 	}
 }   

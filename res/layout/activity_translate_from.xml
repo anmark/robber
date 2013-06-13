@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="@string/translateTo_inputText"
+        android:text="@string/translateTo_inputTextRobber"
         android:textStyle="bold" />
 
     <EditText
@@ -52,7 +52,8 @@
             android:id="@+id/translateTo_output"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:freezesText = "true"
+            android:freezesText="true"
+            android:hint="@string/tvContextHint"
             android:text="@string/translateTo_output"
             android:textIsSelectable="true" />
     </RelativeLayout>

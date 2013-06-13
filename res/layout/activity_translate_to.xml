@@ -38,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button_TranslateTo"
-        android:text="@string/translateTo_outputText"
+        android:text="@string/translateTo_outputTextRobber"
         android:textStyle="bold" />
 
     <RelativeLayout
@@ -52,7 +52,8 @@
             android:id="@+id/translateTo_output"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:freezesText = "true"
+            android:freezesText="true"
+            android:hint="@string/tvContextHint"
             android:text="@string/translateTo_output"
             android:textIsSelectable="true" />
     </RelativeLayout>
