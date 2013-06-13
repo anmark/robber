@@ -25,7 +25,8 @@
         <activity
             android:name="com.anmark.robberlanguage.TranslateToActivity"
             android:label="@string/title_activity_translate_to"
-            android:parentActivityName="com.anmark.robberlanguage.MenuActivity" >
+            android:parentActivityName="com.anmark.robberlanguage.MenuActivity"
+            android:windowSoftInputMode="adjustResize|adjustPan" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.anmark.robberlanguage.MenuActivity" />
@@ -33,7 +34,8 @@
         <activity
             android:name="com.anmark.robberlanguage.TranslateFromActivity"
             android:label="@string/title_activity_translate_from"
-            android:parentActivityName="com.anmark.robberlanguage.MenuActivity" >
+            android:parentActivityName="com.anmark.robberlanguage.MenuActivity"
+            android:windowSoftInputMode="adjustResize|adjustPan" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.anmark.robberlanguage.MenuActivity" />
