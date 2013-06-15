@@ -30,13 +30,8 @@ public class MenuActivity extends Activity {
 	/** Called when the user clicks the About button */
 	public void AboutPressed(View view) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage("The Robber Language is a Swedish language game. It became popular" +
-				" after the books about Kalle Blomkvist by Astrid Lindgren, where the children" +
-				" use it as a code, both at play and in solving actual crimes. The principle is" +
-				" easy enough. Every consonant (spelling matters, not pronunciation) is doubled," +
-				" and an o is inserted in-between. Vowels are left intact.")
-		.setCancelable(false)
-		.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+		builder.setMessage(R.string.aboutText).setCancelable(false)
+		.setPositiveButton(R.string.aboutOk, new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int id) {
 				//do nothing
 			}
@@ -47,8 +42,7 @@ public class MenuActivity extends Activity {
 
 	/** Terminates app and kills process when the user clicks the Quit button */
 	public void QuitPressed(View view) {
-		int pid = android.os.Process.myPid();
-		android.os.Process.killProcess(pid);
+		finish();
 	}
 
 

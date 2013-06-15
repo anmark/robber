@@ -6,15 +6,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     tools:context=".MenuActivity" >
 
-    <TextView
-        android:id="@+id/menuTitle_title"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <Button
         android:id="@+id/menuButton_TranslateTo"
         android:layout_width="match_parent"
@@ -46,5 +37,16 @@
         android:layout_below="@+id/menuButton_About"
         android:onClick="QuitPressed"
         android:text="@string/menuButton_Quit" />
+
+    <TextView
+        android:id="@+id/menuTitle_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
 </RelativeLayout>

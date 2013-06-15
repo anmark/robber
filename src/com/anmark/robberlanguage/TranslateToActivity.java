@@ -76,7 +76,6 @@ public class TranslateToActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-
 	// Translate input text to Robber Language
 	public String translateTo(String input){
 
@@ -110,9 +109,8 @@ public class TranslateToActivity extends Activity {
 		// Display short toast if input is empty
 		if(textToTranslate.isEmpty()){
 			Context context = getApplicationContext();
-			CharSequence text = "There is nothing to translate!";
 			int duration = Toast.LENGTH_SHORT;
-			Toast toast = Toast.makeText(context, text, duration);
+			Toast toast = Toast.makeText(context, context.getString(R.string.nothingToTranslate), duration);
 			toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
 			toast.show();
 		}
@@ -126,15 +124,15 @@ public class TranslateToActivity extends Activity {
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 	super.onCreateContextMenu(menu, v, menuInfo);
 		// Create context menu with one item, clear
-	    menu.setHeaderTitle("Context Menu");
-	    menu.add(0, v.getId(), 0, "Clear");        
+		menu.setHeaderTitle(R.string.title_context_menu);
+	    menu.add(0, v.getId(), 0, R.string.title_clear);        
 	}
 	
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		TextView output = (TextView) findViewById(R.id.translateTo_output);
 		// If clear selected, clear translated text
-		if (item.getTitle().equals("Clear")){
+		if (item.getTitle().equals(R.string.title_clear)){
 			output.setText("");
 		}
 		return true;
