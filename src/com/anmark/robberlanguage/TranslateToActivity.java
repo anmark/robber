@@ -132,7 +132,7 @@ public class TranslateToActivity extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 		TextView output = (TextView) findViewById(R.id.translateTo_output);
 		// If clear selected, clear translated text
-		if (item.getTitle().equals(R.string.title_clear)){
+		if (item.getTitle().equals(getString(R.string.title_clear))){
 			output.setText("");
 		}
 		return true;

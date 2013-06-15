@@ -122,7 +122,7 @@ public class TranslateFromActivity extends Activity {
 	public boolean onContextItemSelected(MenuItem item) {
 		TextView output = (TextView) findViewById(R.id.translateTo_output);
 		// Create context menu with one item, clear
-		if (item.getTitle().equals(R.string.title_clear)){
+		if (item.getTitle().equals(getString(R.string.title_clear))){
 			output.setText("");
 		}
 		return true;
