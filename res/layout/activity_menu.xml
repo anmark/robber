@@ -6,14 +6,15 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:background="@drawable/gradient"
     android:layoutAnimation="@anim/button_animation"
+    android:gravity="center"
     tools:context=".MenuActivity" >
 
     <TextView
         android:id="@+id/menuTitle_title"
         android:textStyle="bold"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"        
+        android:layout_centerHorizontal="true"
         android:text="@string/app_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 

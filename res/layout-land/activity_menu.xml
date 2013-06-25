@@ -2,11 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:gravity="center"
+    android:layoutAnimation="@anim/button_animation"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:background="@drawable/gradient"
-    android:layoutAnimation="@anim/button_animation"
     tools:context=".MenuActivity" >
+
+    <TextView
+        android:id="@+id/menuTitle_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/menuButton_TranslateTo"
@@ -39,16 +49,5 @@
         android:layout_below="@+id/menuButton_About"
         android:onClick="QuitPressed"
         android:text="@string/menuButton_Quit" />
-
-    <TextView
-        android:id="@+id/menuTitle_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="22dp"
-        android:text="@string/app_name"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textStyle="bold" />
 
 </RelativeLayout>
