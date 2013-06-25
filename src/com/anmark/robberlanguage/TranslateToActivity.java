@@ -7,11 +7,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,14 +21,14 @@ public class TranslateToActivity extends Activity {
 	private String robberLanguage = "";
 	private EditText input;
 	private TextView output;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_translate_to);
 		// Show the Up button in the action bar.
 		setupActionBar();
-
+		
 		// Get views
 		input = (EditText) findViewById(R.id.translateTo_input);
 		output = (TextView) findViewById(R.id.translateTo_output);
@@ -108,11 +108,12 @@ public class TranslateToActivity extends Activity {
 
 		// Display short toast if input is empty
 		if(textToTranslate.isEmpty()){
-			Context context = getApplicationContext();
+			final Context context = getApplicationContext();
 			int duration = Toast.LENGTH_SHORT;
 			Toast toast = Toast.makeText(context, context.getString(R.string.nothingToTranslate), duration);
 			toast.setGravity(Gravity.TOP|Gravity.CENTER_HORIZONTAL, 0, 150);
 			toast.show();
+			
 		}
 		// Do translation and display it
 		else{

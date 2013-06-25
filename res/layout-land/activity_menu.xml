@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@drawable/gradient"
+    android:layoutAnimation="@anim/button_animation"
     tools:context=".MenuActivity" >
 
     <Button
