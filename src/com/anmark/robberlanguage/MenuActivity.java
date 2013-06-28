@@ -2,30 +2,78 @@ package com.anmark.robberlanguage;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 
 
 public class MenuActivity extends Activity {
 
+	private MediaPlayer mediaPlayer;
+	static final String timeInSong = "timeInSong";
+	private int timeInSongValue;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_menu);	
+		
+		
+		if(savedInstanceState == null){
+			mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.pirates);
+			mediaPlayer.setLooping(true);
+        }
+		else{
+		restoreValue(savedInstanceState);
+		}
+		System.out.println("create "+ timeInSongValue);
+		
+		mediaPlayer.seekTo(timeInSongValue);
+		mediaPlayer.start();
+
+		setContentView(R.layout.activity_menu);
+	}
+	
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		restoreValue(savedInstanceState);
+		System.out.println("restore "+ timeInSongValue);
 	}
 
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState) {
+		mediaPlayer.pause();
+		timeInSongValue = mediaPlayer.getCurrentPosition();
+		savedInstanceState.putInt("timeInSongValue", timeInSongValue);
+		super.onSaveInstanceState(savedInstanceState);
+	}
+	
+	private void restoreValue(Bundle savedInstanceState) {
+	    
+		if (savedInstanceState != null && savedInstanceState.containsKey(timeInSong))
+	    {
+	        timeInSongValue = savedInstanceState.getInt(timeInSong);
+	    }
+	}
+	
 	/** Called when the user clicks the TranslateTo button */
 	public void TranslateToPressed(View view) {
 		Intent intent = new Intent(this, TranslateToActivity.class);
-		startActivity(intent);   
+		startActivity(intent);  
 	}
 
 	/** Called when the user clicks the TranslateFrom button */
 	public void TranslateFromPressed(View view) {
 		Intent intent = new Intent(this, TranslateFromActivity.class);
 		startActivity(intent);   
+	}
+	@Override
+	public View onCreateView(String name, Context context, AttributeSet attrs) {
+		// TODO Auto-generated method stub
+		return super.onCreateView(name, context, attrs);
 	}
 
 	/** Called when the user clicks the About button */
@@ -43,8 +91,8 @@ public class MenuActivity extends Activity {
 
 	/** Terminates app and kills process when the user clicks the Quit button */
 	public void QuitPressed(View view) {
+		//System.out.println("finish "+ timeInSongValue);
 		finish();
 	}
-
 
 }

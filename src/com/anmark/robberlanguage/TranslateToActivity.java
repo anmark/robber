@@ -138,4 +138,5 @@ public class TranslateToActivity extends Activity {
 		}
 		return true;
 	}
+	
 }
