@@ -3,11 +3,11 @@
     android:id="@+id/translate"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradient"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/gradient"
     tools:context=".TranslateActivity" >
 
     <TextView
@@ -26,20 +26,34 @@
         android:layout_centerHorizontal="true"
         android:inputType="text" />
 
-    <Button
-        android:id="@+id/button_Translate"
+    <RelativeLayout
+        android:id="@+id/relbuttons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/translate_input"
-        android:onClick="TranslatePressed"
-        android:text="@string/button_Translate" />
+        android:layout_below="@+id/translate_input" >
+
+        <Button
+            android:id="@+id/buttonShowTranslatedText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/button_Translate"
+            android:onClick="ShowPreviousTranslatedTextPressed"
+            android:text="@string/button_ShowTranslated" />
+
+        <Button
+            android:id="@+id/button_Translate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:onClick="TranslatePressed"
+            android:text="@string/button_Translate" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/translate_outputText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_Translate"
+        android:layout_below="@+id/relbuttons"
         android:text="@string/translate_outputText"
         android:textStyle="bold" />
 

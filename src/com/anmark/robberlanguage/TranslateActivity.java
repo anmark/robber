@@ -135,6 +135,16 @@ public class TranslateActivity extends Activity {
 				"(?iu)(([b-d]|[f-h]|[j-n]|[p-t]|[v-x]|z)o\\2)", "$2");
 		return output;
 	}
+	
+	/** Called when the user clicks the ShowPreviousTranslatedTextPressed button */
+	public void ShowPreviousTranslatedTextPressed(View view) {
+		if(translateToRobber){
+			output.setText(robberText);
+		}
+		else{
+			output.setText(ordinaryText);
+		}
+	}
 
 	/** Called when the user clicks the Translate button */
 	public void TranslatePressed(View view) {
