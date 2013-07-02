@@ -24,7 +24,10 @@
     <string name="menuClear">Clear</string>
     <string name="aboutOk">OK</string>
     <string name="nothingToTranslate">There is nothing to translate!</string>
-    <string name="music_on_off">Music On/Off</string>
+    <string name="music_on_off">Music On / Off</string>
+    <string name="music_settings">Music Settings</string>
+     <string name="music_settings_summary">Turn on / off the background music</string>
+
     <string name="aboutText">The Robber Language is a Swedish language game.
 	    It became popular after the books about Kalle Blomkvist by Astrid Lindgren, where the children 
 	    use it as a code, both at play and in solving actual crimes. The principle is easy enough.

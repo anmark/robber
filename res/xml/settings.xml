@@ -2,12 +2,12 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
       
-    <PreferenceCategory android:title="Music" >
+    <PreferenceCategory android:title="@string/music_settings">"
         <CheckBoxPreference
             android:defaultValue="false"
             android:key="playMusic"
-            android:summary="Turn on / off music"
-            android:title="Music on / off" >
+            android:summary="@string/music_settings_summary"
+            android:title="@string/music_on_off" >
         </CheckBoxPreference>
  
     </PreferenceCategory>

@@ -120,15 +120,8 @@ public class MenuActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.music_on_off:
-			/*
-			 * playMusicValue = !playMusicValue;
-			 * 
-			 * if(playMusicValue){ mediaPlayer.start(); } else{
-			 * mediaPlayer.pause(); }
-			 */
 			Intent intent = new Intent(this, SettingsPreferenceActivity.class);
 			startActivityForResult(intent, RESULT_SETTINGS);
-
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -137,7 +130,6 @@ public class MenuActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
 		switch (requestCode) {
 		case RESULT_SETTINGS:
 			loadSharedPrefs();
