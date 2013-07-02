@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.NavUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -20,18 +19,20 @@ import android.widget.Toast;
 
 public class TranslateActivity extends Activity {
 
-	private String translatedText = "";
+	public static final String PREFS_NAME = "TranslatePrefs";
 	private EditText input;
 	private TextView output;
 	private TextView translate_inputText;
 	private TextView translate_outputText;
 	private Boolean translateToRobber;
+	private String ordinaryText;
+	private String robberText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		Bundle extras = getIntent().getExtras();
-		setContentView(R.layout.activity_translate);
+		setContentView(R.layout.activity_translate);		
 		
 		// Get views
 		translate_inputText = (TextView) findViewById(R.id.translate_inputText);
@@ -46,18 +47,16 @@ public class TranslateActivity extends Activity {
 				translateToRobber = true;
 				translate_inputText.setText(R.string.translateTo_inputText);
 				translate_outputText.setText(R.string.translateTo_outputText);
-			
-				//translateTo_inputText.setText())
-				//setContentView(R.layout.activity_translate_to);
 			} else {
 				setTitle(R.string.title_activity_translate_from);
 				translateToRobber = false;
 				translate_inputText.setText(R.string.translateFrom_inputText);
 				translate_outputText.setText(R.string.translateFrom_outputText);
-				//setContentView(R.layout.activity_translate_from);
 			}
 		}// there is extras
 
+		// Load shared preferences
+		loadPrefs();
 		// Show the Up button in the action bar.
 		setupActionBar();
 
@@ -91,7 +90,16 @@ public class TranslateActivity extends Activity {
 			return true;
 			// If clear pressed in options menu, clear translated text
 		case R.id.menuclear:
-			output.setText("");
+			if(translateToRobber){
+				robberText = "";
+				output.setText(robberText);
+			}
+			else{
+				ordinaryText = "";
+				output.setText(ordinaryText);
+			}
+			// Save changes
+			savePrefs();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -149,12 +157,14 @@ public class TranslateActivity extends Activity {
 		// Do translation and display it
 		else {
 			if(translateToRobber){
-				translatedText = translateTo(textToTranslate) + " ";
+				robberText = robberText + " " + translateTo(textToTranslate);
+				output.setText(robberText);
 			}
 			else{
-				translatedText = translateFrom(textToTranslate) + " ";
+				ordinaryText = ordinaryText + " " + translateFrom(textToTranslate);
+				output.setText(ordinaryText);
 			}
-			output.append(translatedText);
+			savePrefs();
 		}
 	}
 
@@ -169,20 +179,39 @@ public class TranslateActivity extends Activity {
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		TextView output = (TextView) findViewById(R.id.translate_output);
 		// If clear selected, clear translated text
 		if (item.getTitle().equals(getString(R.string.title_clear))) {
-			output.setText("");
+			if(translateToRobber){
+				robberText = "";
+				output.setText(robberText);
+			}
+			else{
+				ordinaryText = "";
+				output.setText(ordinaryText);
+			}
+			// Save changes
+			savePrefs();
 		}
 		return true;
 	}
-	private void saveSharedPrefs() {
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		//playMusicValue = sharedPrefs.getString(key, defValue);
+	// Save translated texts
+	private void savePrefs() {
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		SharedPreferences.Editor editor = settings.edit();
+		if(translateToRobber){
+			editor.putString("robberText", robberText);
+		}
+		else {
+			editor.putString("ordinaryText", ordinaryText);
+		}
+		// Commit the edits!
+		editor.commit();
 	}
-	private void loadSharedPrefs() {
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		//playMusicValue = sharedPrefs.getString(key, defValue);
+	// Load translated texts
+	private void loadPrefs() {
+		SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+		ordinaryText = settings.getString("ordinaryText", "");
+		robberText = settings.getString("robberText", "");
 	}
 
 }
