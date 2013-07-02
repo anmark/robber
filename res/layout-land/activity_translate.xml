@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/translate"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@drawable/gradient"
+    tools:context=".TranslateActivity" >
+
+    <TextView
+        android:id="@+id/translate_inputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="@string/translate_inputText"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/translate_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/translate_inputText"
+        android:layout_centerHorizontal="true"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/button_Translate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/translate_input"
+        android:onClick="TranslatePressed"
+        android:text="@string/button_Translate" />
+
+    <TextView
+        android:id="@+id/translate_outputText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_Translate"
+        android:text="@string/translate_outputText"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/translate_outputText"
+        android:scrollbars="vertical" >
+
+        <TextView
+            android:id="@+id/translate_output"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:freezesText="true"
+            android:hint="@string/tvContextHint"
+            android:text="@string/translate_output"
+            android:textIsSelectable="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

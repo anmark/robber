@@ -5,27 +5,35 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.AttributeSet;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 public class MenuActivity extends Activity {
 
 	private MediaPlayer mediaPlayer;
 	static final String timeInSong = "timeInSong";
+	static final String playMusic = "playMusic";
+	static final String toRobberLanguage = "toRobberLanguage";
+	static final String fromRobberLanguage = "fromRobberLanguage";
 	private int timeInSongValue;
+	private static final int RESULT_SETTINGS = 1;
+	private boolean playMusicValue;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		mediaPlayer = MediaPlayer
-				.create(getApplicationContext(), R.raw.pirates);
-		mediaPlayer.setLooping(true);
+		init();
 		if (savedInstanceState != null) {
 			super.onRestoreInstanceState(savedInstanceState);
 			System.out.println("notnull " + mediaPlayer.getCurrentPosition());
 			timeInSongValue = savedInstanceState.getInt(timeInSong);
+			playMusicValue = savedInstanceState.getBoolean(playMusic, playMusicValue);
 			System.out.println("notnullx " + timeInSongValue);
 			mediaPlayer.seekTo(timeInSongValue);
 		}
@@ -42,6 +50,17 @@ public class MenuActivity extends Activity {
 		setContentView(R.layout.activity_menu);
 	}
 
+	public void init() {
+		mediaPlayer = MediaPlayer
+				.create(getApplicationContext(), R.raw.pirates);
+		mediaPlayer.setLooping(true);
+		// playMusicValue = true;
+		loadSharedPrefs();
+		if (playMusicValue && !mediaPlayer.isPlaying()) {
+			mediaPlayer.start();
+		}
+	}
+
 	@Override
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		System.out.println("saveinst " + mediaPlayer.getCurrentPosition());
@@ -50,6 +69,7 @@ public class MenuActivity extends Activity {
 		System.out.println("saveinstx " + timeInSongValue);
 		mediaPlayer.pause();
 		savedInstanceState.putInt(timeInSong, timeInSongValue);
+		savedInstanceState.putBoolean(playMusic, playMusicValue);
 		super.onSaveInstanceState(savedInstanceState);
 	}
 
@@ -65,7 +85,9 @@ public class MenuActivity extends Activity {
 		System.out.println("pause " + mediaPlayer.getCurrentPosition());
 		timeInSongValue = mediaPlayer.getCurrentPosition();
 		System.out.println("pausex " + timeInSongValue);
+		if(mediaPlayer.isPlaying()){
 		mediaPlayer.pause();
+		}
 	}
 
 	@Override
@@ -73,7 +95,7 @@ public class MenuActivity extends Activity {
 		super.onStop();
 		System.out.println("stop" + mediaPlayer.getCurrentPosition());
 		System.out.println("stopx " + timeInSongValue);
-		mediaPlayer.stop();
+		mediaPlayer.pause();
 	}
 
 	@Override
@@ -82,18 +104,58 @@ public class MenuActivity extends Activity {
 		System.out.println("resume " + mediaPlayer.getCurrentPosition());
 		System.out.println("resumex " + timeInSongValue);
 		mediaPlayer.seekTo(timeInSongValue);
-		mediaPlayer.start();
+		if (playMusicValue && !mediaPlayer.isPlaying()) {
+			mediaPlayer.start();
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.music_on_off:
+			/*
+			 * playMusicValue = !playMusicValue;
+			 * 
+			 * if(playMusicValue){ mediaPlayer.start(); } else{
+			 * mediaPlayer.pause(); }
+			 */
+			Intent intent = new Intent(this, SettingsPreferenceActivity.class);
+			startActivityForResult(intent, RESULT_SETTINGS);
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		switch (requestCode) {
+		case RESULT_SETTINGS:
+			loadSharedPrefs();
+			break;
+		}
 	}
 
 	/** Called when the user clicks the TranslateTo button */
 	public void TranslateToPressed(View view) {
-		Intent intent = new Intent(this, TranslateToActivity.class);
+		Intent intent = new Intent(this, TranslateActivity.class);
+		intent.putExtra(toRobberLanguage, toRobberLanguage);
 		startActivity(intent);
 	}
 
 	/** Called when the user clicks the TranslateFrom button */
 	public void TranslateFromPressed(View view) {
-		Intent intent = new Intent(this, TranslateFromActivity.class);
+		Intent intent = new Intent(this, TranslateActivity.class);
+		intent.putExtra(fromRobberLanguage, fromRobberLanguage);
 		startActivity(intent);
 	}
 
@@ -143,5 +205,11 @@ public class MenuActivity extends Activity {
 		// Stop method tracing that the activity started during onCreate()
 		// android.os.Debug.stopMethodTracing();
 
+	}
+
+	private void loadSharedPrefs() {
+		SharedPreferences sharedPrefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		playMusicValue = sharedPrefs.getBoolean(playMusic, false);
 	}
 }

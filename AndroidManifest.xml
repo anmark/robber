@@ -12,30 +12,28 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/MyTheme">
+        android:theme="@style/MyTheme" >
         <activity
-            android:configChanges="keyboardHidden|orientation|screenSize"
             android:name="com.anmark.robberlanguage.MenuActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.anmark.robberlanguage.TranslateToActivity"
-            android:label="@string/title_activity_translate_to"
-            android:parentActivityName="com.anmark.robberlanguage.MenuActivity"
-            android:windowSoftInputMode="adjustResize|adjustPan" >
-            <meta-data
+            android:name="com.anmark.robberlanguage.SettingsPreferenceActivity"
+            android:label="@string/action_settings" >
+              <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.anmark.robberlanguage.MenuActivity" />
         </activity>
         <activity
-            android:name="com.anmark.robberlanguage.TranslateFromActivity"
-            android:label="@string/title_activity_translate_from"
-            android:parentActivityName="com.anmark.robberlanguage.MenuActivity"
-            android:windowSoftInputMode="adjustResize|adjustPan" >
+            android:name="com.anmark.robberlanguage.TranslateActivity"
+            android:label="@string/title_activity_translate"
+            android:windowSoftInputMode="adjustResize|adjustPan"
+            android:parentActivityName="com.anmark.robberlanguage.MenuActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.anmark.robberlanguage.MenuActivity" />

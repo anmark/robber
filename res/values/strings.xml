@@ -12,20 +12,23 @@
     <string name="title_context_menu">Context Menu</string>
     <string name="title_clear">Clear</string>
     <string name="button_Translate">Translate</string>
+    <string name="translate_inputText"></string>
+    <string name="translate_outputText"></string>
     <string name="translateTo_inputText">Ordinary text to translate:</string>
-    <string name="translateTo_inputTextRobber">Robber text to translate:</string>
-    <string name="translateTo_output"></string>
+    <string name="translateFrom_inputText">Robber text to translate:</string>
+    <string name="translate_output"></string>
     <string name="translateTo_outputText">Translated ordinary text:</string>
-    <string name="translateTo_outputTextRobber">Translated robber text:</string>
+    <string name="translateFrom_outputText">Translated robber text:</string>
     <string name="tvContextHint">Long press on translated text for context menu with clear option, or select clear in the menu</string>
     <string name="menuClear">Clear</string>
     <string name="aboutOk">OK</string>
-    <string name="nothingToTranslate"> There is nothing to translate!</string>
-   
+    <string name="nothingToTranslate">There is nothing to translate!</string>
+    <string name="music_on_off">Music On/Off</string>
     <string name="aboutText">The Robber Language is a Swedish language game.
 	    It became popular after the books about Kalle Blomkvist by Astrid Lindgren, where the children 
 	    use it as a code, both at play and in solving actual crimes. The principle is easy enough.
 	     Every consonant (spelling matters, not pronunciation) is doubled, and an o is inserted in-between.
 	      Vowels are left intact.</string>
+    <string name="title_activity_translate">TranslateActivity</string>
 
 </resources>
