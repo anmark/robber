@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -13,6 +14,7 @@ import android.util.AttributeSet;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 public class MenuActivity extends Activity {
 
@@ -23,7 +25,8 @@ public class MenuActivity extends Activity {
 	static final String fromRobberLanguage = "fromRobberLanguage";
 	private int timeInSongValue;
 	private static final int RESULT_SETTINGS = 1;
-	private boolean playMusicValue;
+	private boolean playMusicValue, isInLandscape;
+	private RelativeLayout mainLayout, mainLayoutLand;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,19 @@ public class MenuActivity extends Activity {
 			System.out.println("notnullx " + timeInSongValue);
 			mediaPlayer.seekTo(timeInSongValue);
 		}
+		
+		setContentView(R.layout.activity_menu);
+		
+		mainLayout = (RelativeLayout)findViewById(R.id.mainmenu);
+		mainLayoutLand = (RelativeLayout)findViewById(R.id.mainmenuland);
+		
+		
+		// Check orientation and set boolean to control layout animation onResume
+		if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			isInLandscape = true;
+		} else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+			isInLandscape = false;
+		}
 
 		// System.out.println("is null " +
 		// savedInstanceState.getInt(timeInSong));
@@ -47,27 +63,32 @@ public class MenuActivity extends Activity {
 		System.out.println("create " + mediaPlayer.getCurrentPosition());
 		System.out.println("createx " + timeInSongValue);
 
-		setContentView(R.layout.activity_menu);
+	
 	}
-
+	
+	/*
+	public void onWindowFocusChanged (boolean hasFocus) {
+		   super.onWindowFocusChanged(hasFocus);
+		   if (hasFocus)
+		    //  mainLayout.setLayoutAnimation(fadefromright);
+		}
+	 */
 	public void init() {
 		mediaPlayer = MediaPlayer
 				.create(getApplicationContext(), R.raw.pirates);
 		mediaPlayer.setLooping(true);
 		// playMusicValue = true;
 		loadSharedPrefs();
-		if (playMusicValue && !mediaPlayer.isPlaying()) {
+		/*if (playMusicValue && !mediaPlayer.isPlaying()) {
 			mediaPlayer.start();
-		}
+		}*/
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle savedInstanceState) {
 		System.out.println("saveinst " + mediaPlayer.getCurrentPosition());
-
 		timeInSongValue = mediaPlayer.getCurrentPosition();
 		System.out.println("saveinstx " + timeInSongValue);
-		mediaPlayer.pause();
 		savedInstanceState.putInt(timeInSong, timeInSongValue);
 		savedInstanceState.putBoolean(playMusic, playMusicValue);
 		super.onSaveInstanceState(savedInstanceState);
@@ -85,8 +106,8 @@ public class MenuActivity extends Activity {
 		System.out.println("pause " + mediaPlayer.getCurrentPosition());
 		timeInSongValue = mediaPlayer.getCurrentPosition();
 		System.out.println("pausex " + timeInSongValue);
-		if(mediaPlayer.isPlaying()){
-		mediaPlayer.pause();
+		if(mediaPlayer.isPlaying() && playMusicValue){
+			mediaPlayer.pause();
 		}
 	}
 
@@ -95,7 +116,10 @@ public class MenuActivity extends Activity {
 		super.onStop();
 		System.out.println("stop" + mediaPlayer.getCurrentPosition());
 		System.out.println("stopx " + timeInSongValue);
-		mediaPlayer.pause();
+		if(mediaPlayer.isPlaying()){
+			mediaPlayer.pause();
+			mediaPlayer.release();
+		}
 	}
 
 	@Override
@@ -103,12 +127,33 @@ public class MenuActivity extends Activity {
 		super.onResume();
 		System.out.println("resume " + mediaPlayer.getCurrentPosition());
 		System.out.println("resumex " + timeInSongValue);
-		mediaPlayer.seekTo(timeInSongValue);
-		if (playMusicValue && !mediaPlayer.isPlaying()) {
+		
+		if (playMusicValue) {
+			mediaPlayer.seekTo(timeInSongValue);
 			mediaPlayer.start();
+		}
+		
+		
+		// start layout animation when activity has been hidden
+		if(isInLandscape){	
+			mainLayoutLand.startLayoutAnimation();
+		}
+		else{
+			mainLayout.startLayoutAnimation();
 		}
 	}
 
+	public void onConfigurationChanged(Configuration newConfig) {
+		super.onConfigurationChanged(newConfig);
+
+		// Checks the orientation of the screen
+		if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			isInLandscape = true;
+		} else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+			isInLandscape = false;
+		}
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -162,14 +207,14 @@ public class MenuActivity extends Activity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this,
 				R.style.CustomDialog);
 		builder.setMessage(R.string.aboutText)
-				.setCancelable(false)
-				.setIcon(R.drawable.ic_launcher)
-				.setPositiveButton(R.string.aboutOk,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// do nothing
-							}
-						});
+		.setCancelable(false)
+		.setIcon(R.drawable.ic_launcher)
+		.setPositiveButton(R.string.aboutOk,
+				new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int id) {
+				// do nothing
+			}
+		});
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
